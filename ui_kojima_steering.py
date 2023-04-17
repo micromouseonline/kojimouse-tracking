@@ -3,6 +3,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pgwidget import PGWidget
 
+class QHLine(QtWidgets.QFrame):
+    def __init__(self):
+        super(QHLine, self).__init__()
+        self.setFrameShape(QtWidgets.QFrame.HLine)
+        self.setFrameShadow(QtWidgets.QFrame.Sunken)
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -192,17 +199,22 @@ class Ui_MainWindow(object):
         self.gb_constraints.setLayout(grid)
 
         self.btn_reset = QtWidgets.QPushButton("RESET")
+        self.btn_reset.setStyleSheet('QPushButton {background-color: #A3C1DA; border:  none}')
+        self.btn_reset.setFixedHeight(32)
 
         self.controls_layout = QtWidgets.QVBoxLayout()
         self.controls_layout.addWidget(self.gb_controls)
+        self.controls_layout.addWidget(QHLine())
         self.controls_layout.addWidget(self.gb_initial)
+        self.controls_layout.addWidget(QHLine())
         self.controls_layout.addWidget(self.gb_constraints)
+        self.controls_layout.addWidget(QHLine())
         self.controls_layout.addWidget(self.btn_reset)
+        self.controls_layout.addWidget(QHLine())
 
 
         spacerItem = QtWidgets.QSpacerItem(240, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.controls_layout.addSpacerItem(spacerItem)
-
         control_widget.setLayout(self.controls_layout)
         return control_widget
 

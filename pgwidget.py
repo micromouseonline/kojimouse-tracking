@@ -10,39 +10,49 @@ class PGWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         title_style = {'color': 'cyan', 'size': '12px'}
-        label_styles = {'verSpacing': -10, 'labelTextSize': '10px'}
+        label_styles = {'verSpacing': -10, 'labelTextSize': '10px', 'color':'cyan'}
         hline_style = {'border-style': 'solid', 'border-color': 'green', 'bottom_margin': '50px'}
         self.setStyleSheet('background-color:yellow')
 
         layout = QVBoxLayout()
 
         self.pw_y = pg.PlotWidget()
-        self.pw_y.setTitle("y (mm)", **title_style)
+        self.pw_y.setTitle("distance error", **title_style)
         self.pw_y.setYRange(-25, 25)
+        self.pw_y.setLabel('bottom','distance',units='m', **label_styles)
+        self.pw_y.setLabel('left','y',units='mm', **label_styles)
 
         self.vline = pg.InfiniteLine(angle=90, movable=False)
         self.pw_y.addItem(self.vline)
         # self.pw_y.enableAutoRange()
 
         self.pw_theta = pg.PlotWidget()
-        self.pw_theta.setTitle("theta (deg)", **title_style)
-        self.pw_theta.setYRange(-10, 10)
+        self.pw_theta.setTitle("angle error", **title_style)
+        self.pw_theta.setYRange(-12, 12)
         self.pw_theta.setXLink(self.pw_y)
+        self.pw_theta.setLabel('bottom','distance',units='m', **label_styles)
+        self.pw_theta.setLabel('left','theta',units='deg', **label_styles)
 
         self.pw_omega = pg.PlotWidget()
-        self.pw_omega.setTitle("omega (deg/s)", **title_style)
+        self.pw_omega.setTitle("angular velocity", **title_style)
         self.pw_omega.setYRange(-300, 300)
         self.pw_omega.setXLink(self.pw_y)
+        self.pw_omega.setLabel('bottom','distance',units='m', **label_styles)
+        self.pw_omega.setLabel('left','omega',units='deg/s', **label_styles)
 
         self.pw_alpha = pg.PlotWidget()
-        self.pw_alpha.setTitle("&alpha (deg/s/s)", **title_style)
+        self.pw_alpha.setTitle("controller output (angular acceleration)", **title_style)
         self.pw_alpha.setYRange(-20000, 20000)
         self.pw_alpha.setXLink(self.pw_y)
+        self.pw_alpha.setLabel('bottom','distance',units='m', **label_styles)
+        self.pw_alpha.setLabel('left','alpha',units='deg/s/s', **label_styles)
 
         self.pw_speed = pg.PlotWidget()
-        self.pw_speed.setTitle("speed (m/s)", **title_style)
+        self.pw_speed.setTitle("robot speed", **title_style)
         self.pw_speed.setYRange(0, 9)
         self.pw_speed.setXLink(self.pw_y)
+        self.pw_speed.setLabel('bottom','distance',units='m', **label_styles)
+        self.pw_speed.setLabel('left','v',units='m/s', **label_styles)
 
         layout.addWidget(self.pw_y)
         layout.addWidget(self.pw_theta)
