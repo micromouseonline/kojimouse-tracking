@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 
 import pyqtgraph as pg
+import numpy as np
 
 palette = ("#101418", "#c00000", "#c000c0", "#c06000", "#00c000", "#0072c3", "#6fdc8c", "#d2a106")
 
@@ -18,6 +19,7 @@ class PGWidget(QWidget):
         self.pw_y = pg.PlotWidget()
         self.pw_y.setTitle("y (mm)", **title_style)
         self.pw_y.setYRange(-25, 25)
+
         self.vline = pg.InfiniteLine(angle=90, movable=False)
         self.pw_y.addItem(self.vline)
         # self.pw_y.enableAutoRange()
@@ -52,7 +54,11 @@ class PGWidget(QWidget):
         pg.setConfigOption('foreground', 'y')
         pg.setConfigOptions(antialias=True)
         self.axes = [self.pw_y, self.pw_theta, self.pw_omega, self.pw_alpha, self.pw_speed]
+        dx = [(v,f'{v:.3f}') for v in list(np.arange(0,1.9,0.18))]
+        print(dx)
         for ax in self.axes:
             ax.showGrid(x=True, y=True)
+            ax.getAxis('bottom').setTicks([dx])
+
 
 
