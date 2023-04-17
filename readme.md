@@ -1,4 +1,4 @@
-# Kojima Turn Demonstration
+# Kojimouse Tracking Demonstration
 
 ## Introduction
 This python project is a direct implementation of the sreadsheet produced by Kojima-san on his micromouse blog in a 
