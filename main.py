@@ -42,6 +42,7 @@ class AppWindow(QMainWindow):
         self.ui.setupUi(self)
         self.centre_on_screen()
         # connect all the parameter elements to the same recalculation
+        self.reset()
         self.ui.sb_kp.valueChanged.connect(self.recalculate)
         self.ui.sb_kd.valueChanged.connect(self.recalculate)
         self.ui.sb_k1.valueChanged.connect(self.recalculate)
@@ -51,6 +52,7 @@ class AppWindow(QMainWindow):
         self.ui.sb_y_init.valueChanged.connect(self.recalculate)
         self.ui.sb_omega_init.valueChanged.connect(self.recalculate)
         self.ui.sb_speed_init.valueChanged.connect(self.recalculate)
+        self.ui.sb_omega_max.valueChanged.connect(self.recalculate)
         self.ui.sb_alpha_max.valueChanged.connect(self.recalculate)
         self.ui.sb_v_max.valueChanged.connect(self.recalculate)
         # and connect the parameter reset
@@ -81,6 +83,7 @@ class AppWindow(QMainWindow):
         self.move(geometry.topLeft())
 
     def reset(self):
+        self.blockSignals(True)
         self.ui.sb_kp.setValue(12000)
         self.ui.sb_kd.setValue(200)
         self.ui.sb_k1.setValue(0.200)
@@ -91,7 +94,9 @@ class AppWindow(QMainWindow):
         self.ui.sb_speed_init.setValue(1.0)
         self.ui.sb_acc.setValue(9.8)
         self.ui.sb_v_max.setValue(6.0)
+        self.ui.sb_omega_max.setValue(300)
         self.ui.sb_alpha_max.setValue(15000)
+        self.blockSignals(False)
         pass
 
 
@@ -100,6 +105,7 @@ class AppWindow(QMainWindow):
         dt = 0.001
         time = 0
         acc = self.ui.sb_acc.value()
+        omega_max = math.radians(self.ui.sb_omega_max.value())
         alpha_max = math.radians(self.ui.sb_alpha_max.value())
         speed = self.ui.sb_speed_init.value()
         x = 0.0
@@ -128,6 +134,7 @@ class AppWindow(QMainWindow):
             # limit the value of alpha that is used in the calculation
             alpha = max(min(alpha,alpha_max),-alpha_max)
             omega += dt * alpha
+            omega = max(min(omega,omega_max),-omega_max)
             theta += dt * omega
             x += dt * speed * math.cos(theta)
             y += dt * speed * math.sin(theta)

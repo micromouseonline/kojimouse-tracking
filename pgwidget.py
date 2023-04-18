@@ -63,9 +63,12 @@ class PGWidget(QWidget):
 
         pg.setConfigOption('foreground', 'y')
         pg.setConfigOptions(antialias=True)
-        self.axes = [self.pw_y, self.pw_theta, self.pw_omega, self.pw_alpha, self.pw_speed]
+        # set the x-axis tick marks to be multiples of 180mm
+        # generate the list of values and labels
         dx = [(v,f'{v:.3f}') for v in list(np.arange(0,1.9,0.18))]
-        print(dx)
+        # print(dx)
+        # run through each graph and make the change
+        self.axes = [self.pw_y, self.pw_theta, self.pw_omega, self.pw_alpha, self.pw_speed]
         for ax in self.axes:
             ax.showGrid(x=True, y=True)
             ax.getAxis('bottom').setTicks([dx])

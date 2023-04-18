@@ -150,6 +150,17 @@ class Ui_MainWindow(object):
         self.sb_v_max.setSingleStep(0.1)
         self.sb_v_max.setProperty("value", 6.0)
 
+        self.lbl_omega_max = QtWidgets.QLabel("Omega Max (deg/s):")
+        self.lbl_omega_max.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.sb_omega_max = QtWidgets.QSpinBox()
+        self.sb_omega_max.setFrame(True)
+        self.sb_omega_max.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.sb_omega_max.setButtonSymbols(QtWidgets.QAbstractSpinBox.UpDownArrows)
+        self.sb_omega_max.setMinimum(0)
+        self.sb_omega_max.setMaximum(1000)
+        self.sb_omega_max.setSingleStep(10)
+        self.sb_omega_max.setProperty("value", 600)
+
         self.lbl_alpha_max = QtWidgets.QLabel("Alpha Max (deg/s/s):")
         self.lbl_alpha_max.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.sb_alpha_max = QtWidgets.QSpinBox()
@@ -174,6 +185,7 @@ class Ui_MainWindow(object):
         grid.addWidget(self.lbl_k2,       3,0)
         grid.addWidget(self.sb_k2,        3,1)
 
+
         self.gb_controls.setLayout(grid)
 
         self.gb_initial = QtWidgets.QGroupBox("Initial Conditions:")
@@ -194,8 +206,10 @@ class Ui_MainWindow(object):
         grid = QtWidgets.QGridLayout()
         grid.addWidget(self.lbl_v_max,      1, 0)
         grid.addWidget(self.sb_v_max,       1, 1)
-        grid.addWidget(self.lbl_alpha_max,  2, 0)
-        grid.addWidget(self.sb_alpha_max,   2, 1)
+        grid.addWidget(self.lbl_omega_max,  2, 0)
+        grid.addWidget(self.sb_omega_max,   2, 1)
+        grid.addWidget(self.lbl_alpha_max,  3, 0)
+        grid.addWidget(self.sb_alpha_max,   3, 1)
         self.gb_constraints.setLayout(grid)
 
         self.btn_reset = QtWidgets.QPushButton("RESET")
